@@ -1,0 +1,1 @@
+_startRulesGeneral = createdialog "GeneralRules";

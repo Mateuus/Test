@@ -1,0 +1,1 @@
+_startRulesTrader = createdialog "TraderRules";

@@ -1,0 +1,1 @@
+_hconfirm=createdialog "CCDConfirm";

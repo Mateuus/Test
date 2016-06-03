@@ -1,0 +1,257 @@
+respawn = "BASE";
+respawndelay = 5;
+onLoadMission= "BR Adyl (chernobyl)CDP GAMERS";
+OnLoadIntro = "Bem Vindo ao Adyl (chernobyl)CDP GAMERS";
+OnLoadIntroTime = False;
+OnLoadMissionTime = False;
+disabledAI = true;
+disableChannels[]={0,2,6};
+enableItemsDropping = 0;
+
+#include "CfgBuildingLoot.hpp"
+#include "custom\CfgServerTrader\cfgServerTrader.hpp"
+
+briefing = 0;
+debriefing = 0;
+
+onPauseScript = "custom\check.sqf";
+loadScreen = "custom\chernobyl.jpg";
+
+class Header
+{
+ gameType = COOP;
+ minPlayers = 1;
+ maxPlayers = 50;
+};
+
+aiKills = 1;
+diagRadio = 1;
+diagHit = 1;
+
+#include "hw.hpp"
+#include "addons\dzgm\defines.hpp"
+#include "addons\dzgm\groupManagement.hpp"
+#include "dayz_code\gui\ATD_Hud.h"
+
+class RscText
+{
+	type = 0;
+	idc = -1;
+	x = 0;
+	y = 0;
+	h = 0.037;
+	w = 0.3;
+	style = 0x100; 
+	font = Zeppelin32;
+	SizeEx = 0.03921;
+	colorText[] = {1,1,1,1};
+	colorBackground[] = {0, 0, 0, 0};
+	linespacing = 1;
+};
+class RscPicture
+{
+	access=0;
+	type=0;
+	idc=-1;
+	style=48;
+	colorBackground[]={0,0,0,0};
+	colorText[]={1,1,1,1};
+	font="TahomaB";
+	sizeEx=0;
+	lineSpacing=0;
+	text="";
+};
+class RscLoadingText : RscText
+{
+	style = 2;
+	x = 0.323532;
+	y = 0.666672;
+	w = 0.352944;
+	h = 0.039216;
+	sizeEx = 0.03921;
+	colorText[] = {0.543,0.5742,0.4102,1.0};
+};
+class RscProgress
+{
+	x = 0.344;
+	y = 0.619;
+	w = 0.313726;
+	h = 0.0261438;
+	texture = "\ca\ui\data\loadscreen_progressbar_ca.paa";
+	colorFrame[] = {0,0,0,0};
+	colorBar[] = {1,1,1,1};
+};
+class RscProgressNotFreeze
+{
+	idc = -1;
+	type = 45;
+	style = 0;
+	x = 0.022059;
+	y = 0.911772;
+	w = 0.029412;
+	h = 0.039216;
+	texture = "#(argb,8,8,3)color(0,0,0,0)";
+};
+class DayZ_loadingScreen
+{ 
+	idd = -1;
+	duration = 10e10;
+	fadein = 0;
+	fadeout = 0;
+	name = "loading screen";
+	class controlsBackground
+	{
+		class blackBG : RscText
+		{
+			x = safezoneX;
+			y = safezoneY;
+			w = safezoneW;
+			h = safezoneH;
+			text = "";
+			colorText[] = {0,0,0,0};
+			colorBackground[] = {0,0,0,1};
+		};
+	};
+	class controls
+	{
+		
+		class Title1 : RscLoadingText
+		{
+			text = "$STR_LOADING";
+		};
+		class CA_Progress : RscProgress
+		{
+			idc = 104;
+			type = 8;
+			style = 0;
+			texture = "\ca\ui\data\loadscreen_progressbar_ca.paa";
+		};
+		class CA_Progress2 : RscProgressNotFreeze
+		{
+			idc = 103;
+		};
+		class Name2: RscText
+		{
+			idc = 101;
+			x = 0.05;
+			y = 0.029412;
+			w = 0.9;
+			h = 0.04902;
+			text = "";
+			sizeEx = 0.05;
+			colorText[] = {0.543,0.5742,0.4102,1.0};
+		};
+	};
+};
+
+class CfgSounds {
+    sounds[] = {dieScream,error1,Brief_Open_Sound,weed,smoking,carLock,rockhit,emorreu,enasceu};
+    class dieScream {
+		name="dieScream";
+		sound[]={custom\diescream.ogg,1,1};
+		titles[] = {};
+    };
+	class error1 {
+		name="error1";
+		sound[]={custom\error1.ogg,1,1};
+		titles[] = {};
+    };
+	class Brief_Open_Sound {
+		name = "Brief_Open_Sound";
+		sound[]={addons\mbc\brief_open.ogg,1,1};
+		titles[] = {};
+	};
+	class weed {
+		name = "weed";
+		sound[]={custom\weed\weed.ogg,1,1};
+		titles[] = {};
+	};
+	class smoking {
+		name = "smoking";
+		sound[]={custom\weed\smoking.ogg,0.5,1};
+		titles[] = {};
+	};
+	class carLock {
+		name = "carLock";
+		sound[]={custom\carlock.ogg,1,1};
+		titles[] = {};
+	};
+    class nitro {
+        name="nitro";
+        sound[]={NOS\nitro.ogg,0.1,1};
+        titles[] = {};
+    };
+    class suction {
+        name="suction";
+        sound[]={NOS\suction.ogg,0.3,1};
+        titles[] = {};
+    };
+    class exhaustor {
+        name="exhaustor";
+        sound[]={NOS\exhaustor.ogg,0.5,1};
+        titles[] = {};
+    };
+	class rockhit {
+		name = "rockhit";
+		sound[]={custom\hit.ogg,0.2,1};
+		titles[] = {};
+	};
+	class emorreu {
+		name = "emorreu";
+		sound[]={custom\emorreu.ogg,0.5,1};
+		titles[] = {};
+	};
+	class siren {
+		name = "siren";
+		sound[]={scripts\sirens\siren.ogg,1,1};
+		titles[] = {};
+	};
+	class enasceu {
+		name = "enasceu";
+		sound[]={custom\enasceu.ogg,0.2,1};
+		titles[] = {};
+	};
+	class nuke33 {
+		name = "nuke33";
+		sound[]={custom\nuke33.ogg,0.5,1};
+		titles[] = {};
+	};
+	class nuke22 {
+		name = "nuke22";
+		sound[]={custom\nuke22.ogg,1,1};
+		titles[] = {};
+	};
+	class Radio_Message_Sound {
+		name = "Radio_Message_Sound";
+		sound[]={custom\radio.ogg,1,1};
+		titles[] = {};
+	};
+	class PlayerWhite {
+		name = "PlayerWhite";
+		sound[]={custom\white.ogg,1,1};
+		titles[] = {};
+	};
+};
+
+#include "plotManagement\defines.hpp"
+#include "plotManagement\plotManagement.hpp"
+#include "scripts\gambling\slotmachine\slots.hpp"
+#include "custom\Menu\CCDMenu.hpp"
+#include "custom\Menu\rules\RulesChoice.hpp"
+#include "custom\Menu\rules\TraderRules.hpp"
+#include "custom\Menu\rules\BuildingRules.hpp"
+#include "custom\Menu\rules\GeneralRules.hpp"
+#include "custom\Menu\SuicideConfirm.hpp"
+#include "custom\snap_pro\snappoints.hpp"
+#include "addons\mbc\dialogs.hpp"
+#include "ZSC\config\ZSCdefines.hpp"
+#include "ZSC\config\ZSCdialogs.hpp"
+#include "spawn\class.hpp"
+#include "spawn\halo.hpp"
+#include "spawn\spawn.hpp"
+#include "zupa\advancedTrading\advancedTrading.hpp"
+#include "spawn\Pick10\Shix_Defines.hpp"
+#include "spawn\Pick10\ShixPick10.hpp" 
+#include "doorManagement\doorUnlock.hpp"
+#include "doorManagement\doorManagement.hpp"
+#include "doorManagement\ComboLockUI.hpp"
